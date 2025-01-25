@@ -32,7 +32,14 @@ function commandCompile {
 }
 
 function commandDeploy {
-    Copy-Item -Path $outFolderPath -Destination $modFolderPath -Recurse
+    Get-ChildItem -Path $outFolderPath -Recurse | ForEach-Object {
+        $destinationPath = $_.FullName.Replace($outFolderPath, $modFolderPath)
+        if ($_.PSIsContainer) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+        } else {
+            Copy-Item -Path $_.FullName -Destination $destinationPath -Force
+        }
+    }
 }
 
 function commandBuild { 
