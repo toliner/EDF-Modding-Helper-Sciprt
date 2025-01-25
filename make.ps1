@@ -61,7 +61,7 @@ function compileWeapon {
         $outFilePath = Join-Path -Path $outFolderPath -ChildPath "$outFileName.sgo"
         $outFile = Get-Item -Path $outFilePath -ErrorAction SilentlyContinue
         if ($outFile.LastWriteTime -lt $jsonFile.LastWriteTime) {
-            Invoke-Expression "$sgott $jsonFile $outFilePath"
+            Invoke-Expression "$sgott '$jsonFile' '$outFilePath'"
         }
     }
 }
