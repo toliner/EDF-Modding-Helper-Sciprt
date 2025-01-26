@@ -42,7 +42,10 @@ function commandDeploy {
             }
         }
         else {
-            Copy-Item -Path $_.FullName -Destination $destinationPath -Force
+            $outFile = Get-Item -Path $destinationPath -ErrorAction SilentlyContinue
+            if (!$outFile -or ($outFile.LastWriteTime -lt $_.LastWriteTime)) {
+                Copy-Item -Path $_.FullName -Destination $destinationPath -Force
+            }
         }
     }
 }
