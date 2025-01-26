@@ -1,3 +1,4 @@
 .edf
 *.exe
 out
+!RMPA-Processor.exe
