@@ -29,6 +29,10 @@ $weaponFolderPath = Join-Path -Path (Get-Location) -ChildPath "WEAPON"
 if (-not (Test-Path -Path $weaponFolderPath)) {
     New-Item -ItemType Directory -Path $weaponFolderPath
 }
+$missionFolderPath = Join-Path -Path (Get-Location) -ChildPath "MISSION"
+if (-not (Test-Path -Path $missionFolderPath)) {
+    New-Item -ItemType Directory -Path $missionFolderPath
+}
 $modFolderPath = Join-Path -Path (Get-Content -Path $dotEdfFilePath) -ChildPath "Mods"
 if (-not (Test-Path -Path $modFolderPath)) {
     New-Item -ItemType Directory -Path $modFolderPath
@@ -37,9 +41,17 @@ $weaponOutFolderPath = Join-Path -Path $outFolderPath -ChildPath "WEAPON"
 if (-not (Test-Path -Path $weaponOutFolderPath)) {
     New-Item -ItemType Directory -Path $weaponOutFolderPath
 }
+$missionOutFolderPath = Join-Path -Path $outFolderPath -ChildPath "MISSION"
+if (-not (Test-Path -Path $missionOutFolderPath)) {
+    New-Item -ItemType Directory -Path $missionOutFolderPath
+}
 $weaponModFolderPath = Join-Path -Path $modFolderPath -ChildPath "WEAPON"
 if (-not (Test-Path -Path $weaponModFolderPath)) {
     New-Item -ItemType Directory -Path $weaponModFolderPath
+}
+$missionModFolderPath = Join-Path -Path $modFolderPath -ChildPath "MISSION"
+if (-not (Test-Path -Path $missionModFolderPath)) {
+    New-Item -ItemType Directory -Path $missionModFolderPath
 }
 
 # sgott.exe をダウンロード
