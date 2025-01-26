@@ -42,10 +42,7 @@ function commandDeploy {
             }
         }
         else {
-            $outFile = Get-Item -Path $destinationPath -ErrorAction SilentlyContinue
-            if (!$outFile -or ($outFile.LastWriteTime -lt $_.LastWriteTime)) {
-                Copy-Item -Path $_.FullName -Destination $destinationPath -Force
-            }
+            Copy-Item -Path $_.FullName -Destination $destinationPath -Force
         }
     }
 }
@@ -92,7 +89,7 @@ function compileMission {
             Write-Host "Processing $acFile"
             $destinationPath = Join-Path -Path $missionOutFolderPath -ChildPath "MISSION.AC"
             $outFile = Get-Item -Path $destinationPath -ErrorAction SilentlyContinue
-            if (!$outFile -or ($outFile.LastWriteTime -lt $jsonFile.LastWriteTime)) {
+            if (!$outFile -or ($outFile.LastWriteTime -lt $acFile.LastWriteTime)) {
                 $destinationDir = [System.IO.Path]::GetDirectoryName($destinationPath)
                 if (-not (Test-Path -Path $destinationDir)) {
                     New-Item -ItemType Directory -Path $destinationDir -Force
@@ -114,7 +111,7 @@ function compileMission {
             Write-Host "Processing $rmpaFile"
             $destinationPath = Join-Path -Path $missionOutFolderPath -ChildPath "MISSION.RMPA"
             $outFile = Get-Item -Path $destinationPath -ErrorAction SilentlyContinue
-            if (!$outFile -or ($outFile.LastWriteTime -lt $jsonFile.LastWriteTime)) {
+            if (!$outFile -or ($outFile.LastWriteTime -lt $rmpaFile.LastWriteTime)) {
                 Invoke-Expression "$rmpaProcessor '$rmpaFile' '$destinationPath'"
             }
         }
