@@ -30,6 +30,7 @@ function commandHelp {
 
 function commandCompile { 
     compileWeapon
+    compileObject
     compileMission
 }
 
@@ -57,6 +58,18 @@ function compileWeapon {
     $jsonFiles = Get-ChildItem -Path $weaponFolderPath -Filter *.json -File
     $outFolderPath = Join-Path -Path $outFolderPath -ChildPath "WEAPON"
     
+    compileSgo $jsonFiles $outFolderPath
+}
+
+function compileObject {
+    $objectFolderPath = Join-Path -Path (Get-Location) -ChildPath "OBJECT"
+    $jsonFiles = Get-ChildItem -Path $objectFolderPath -Filter *.json -File
+    $outFolderPath = Join-Path -Path $outFolderPath -ChildPath "OBJECT"
+    
+    compileSgo $jsonFiles $outFolderPath
+}
+
+function compileSgo($jsonFiles, $outFolderPath) {
     foreach ($jsonFile in $jsonFiles) {
         $fileName = [System.IO.Path]::GetFileNameWithoutExtension($jsonFile.Name)
         $parts = $fileName -split '-'
