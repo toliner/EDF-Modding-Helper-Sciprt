@@ -70,6 +70,9 @@ function compileObject {
 }
 
 function compileSgo($jsonFiles, $outFolderPath) {
+    if (-not (Test-Path -Path $outFolderPath)) {
+        New-Item -ItemType Directory -Path $outFolderPath -Force
+    }
     foreach ($jsonFile in $jsonFiles) {
         $fileName = [System.IO.Path]::GetFileNameWithoutExtension($jsonFile.Name)
         $parts = $fileName -split '-'
